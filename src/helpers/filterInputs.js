@@ -7,15 +7,12 @@ var $ = require('jquery');
  * when you include a partial in yeti.
  *
  * @param {jQuery} $form The form element to get the inputs from
- * @todo: Rewrite
  */
 function filterInputs($form) {
-  // Get all form elements with form validation
-  var allFormVals = $form.find('[data-validations]:visible');
-  var nextForm = $form.find('form');
-  // Get elements belonging to a child form and ignore them
-  var nextFormVals = nextForm.find('[data-validations]');
-  return $($(allFormVals).not(nextFormVals).get());
+  return $form.find('[data-validations]:visible')
+    .filter(function () {
+      return $(this).closest('form').is($form);
+    });
 }
 
 module.exports = filterInputs;
