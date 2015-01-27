@@ -3,8 +3,9 @@
 var $ = require('jquery');
 
 var validators = require('./validators');
-var filterInputs = require('./helpers/filterInputs');
 var getParentForm = require('./helpers/getParentForm');
+
+require('./helpers/findInForm');
 
 var validate = module.exports = validators.validate = {};
 
@@ -83,7 +84,7 @@ validate.element = function validateElement(input, setClasses) {
 validate.form = function validateForm(form) {
   var $form = $(form);
   var $notDirty;
-  var $inputs = filterInputs($form);
+  var $inputs = $form.findInForm('[data-validations]:visible');
   var valid = true;
 
   // Validate all elements which have been modified since page load
