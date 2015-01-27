@@ -1,8 +1,8 @@
 'use strict';
 
-var validators = require('./validators');
+var validators = require('./src/validators');
 
-require('./addListeners');
+require('./src/addListeners');
 
 if (typeof module === 'object' && module.exports) {
   module.exports = validators;

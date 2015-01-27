@@ -9,6 +9,7 @@ var getErrorElement = require('./helpers/getErrorElement');
 $(document).on('keyup click change blur', 'input, textarea', function (e) {
   var $this = $(this);
 
+  // If an input has no validators, assume that it is always valid
   if (!$this.attr('data-validations')) {
     if ($this.val()) {
       $this.addClass('is-dirty is-valid');
@@ -17,6 +18,7 @@ $(document).on('keyup click change blur', 'input, textarea', function (e) {
     return;
   }
 
+  // Validate and show errors
   if (!validate.element(this)) {
     var $error = getErrorElement($this);
 
@@ -31,6 +33,8 @@ $(document).on('keyup click change blur', 'input, textarea', function (e) {
   validate.form($(e.target).parents('form').get(0));
 });
 
+// I'm honestly not sure what this code does that the above doesn't
+// @todo: Figure out what this does
 $(document).on('blur keyup', '[data-validations]', function (e) {
   var $input = $(e.target);
 
@@ -67,6 +71,7 @@ $(document).ready(function () {
 
     validate.form(this);
 
+    // Disable browser validation and validate non-empty inputs on load
     $this.prop('noValidate', true)
       .find('[data-validations]')
       .filter('[required]').prop('required', false).end()
@@ -75,13 +80,17 @@ $(document).ready(function () {
         validate.element(this);
       });
 
+    // This doesn't really belong in this library. It makes sure that the
+    // infield stuff works. @todo: Remove this
     $this
       .find('input, textarea')
       .filter(':not([data-validations]):not([value=""])')
       .filter('[type="text"], [type="tel"], [type="email"]')
       .trigger('blur');
 
+    // Run validation on form submit
     $this.on('submit', function (e) {
+      // This runs validation on every input regardless of cleanliness
       $this.find('[data-validations]')
         .addClass('is-filled is-dirty')
         .trigger('blur');
@@ -107,6 +116,7 @@ $(document).ready(function () {
   });
 });
 
+// If you fire the `validate` event on an input, it will be validated
 $(document).on('validate', '[data-validations]', function () {
   validate.element(this);
 });

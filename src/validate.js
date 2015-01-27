@@ -21,12 +21,14 @@ validate.element = function validateElement(input, setClasses) {
   var $input = $(input);
   var validations;
 
+  // Make sure there are enough characters entered
   if (typeof $input.data('validate-at') !== 'undefined') {
     if (!$input.hasClass('is-filled') && $input.val().length < $input.data('validate-at')) {
       return;
     }
   }
 
+  // Cache the array of validations
   if (!$input.data('_validationArray')) {
     validations = $input.data('validations').split(' ');
     $input.data('_validationArray', validations);
@@ -43,8 +45,10 @@ validate.element = function validateElement(input, setClasses) {
     $input = $(input);
   }
 
+  // Run the validations on the element
   var error = validators.runValidators(input, validations);
 
+  // Set classes if they should be set
   if (setClasses !== false && $input.is(':visible')) {
     if ($input.val()) {
       $input.addClass('is-dirty');
@@ -82,6 +86,7 @@ validate.form = function validateForm(form) {
   var $inputs = filterInputs($form);
   var valid = true;
 
+  // Validate all elements which have been modified since page load
   if ($inputs.filter('.is-invalid').length) {
     valid = false;
   } else if (($notDirty = $inputs.filter(':not(.is-dirty), [type="radio"]')).length) {
@@ -94,6 +99,7 @@ validate.form = function validateForm(form) {
     });
   }
 
+  // Add classes to form
   if ($form.find('.is-dirty').length) {
     $form.addClass('is-dirty');
   }
@@ -104,6 +110,7 @@ validate.form = function validateForm(form) {
     $form.addClass('is-invalid').removeClass('is-valid');
   }
 
+  // Disable submit buttons
   $form.find('[type="submit"]:not([data-ignore-validation="true"])')
     .prop('disabled', $form.find('.is-filled.is-invalid:visible').length);
 

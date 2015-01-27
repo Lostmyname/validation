@@ -3,7 +3,11 @@
 var $ = require('jquery');
 
 /**
- * Just get the inputs from current form, not the ones from child forms. I.e. when you include a partial in yeti
+ * Just get the inputs from current form, not the ones from child forms. I.e.
+ * when you include a partial in yeti.
+ *
+ * @param {jQuery} $form The form element to get the inputs from
+ * @todo: Rewrite
  */
 function filterInputs($form) {
   // Get all form elements with form validation
