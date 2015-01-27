@@ -1,6 +1,6 @@
 {
   "name": "validation",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "The validation library used by Lost My Name",
   "main": "index.js",
   "dependencies": {
