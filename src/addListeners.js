@@ -72,10 +72,16 @@ $(document).ready(function () {
     validate.form(this);
 
     // Disable browser validation and validate non-empty inputs on load
-    $this.prop('noValidate', true)
+    $this
+      .prop('noValidate', true)
       .find('[data-validations]')
       .filter('[required]').prop('required', false).end()
-      .filter('[maxlength]').removeAttr('maxlength').end()
+      .filter('[maxlength]').each(function () {
+        var $this = $(this);
+        $this
+          .attr('data-maxlength', $this.attr('maxlength'))
+          .removeAttr('maxlength');
+      }).end()
       .filter(':not([value=""])').each(function () {
         validate.element(this);
       });
@@ -91,7 +97,8 @@ $(document).ready(function () {
     // Run validation on form submit
     $this.on('submit', function (e) {
       // This runs validation on every input regardless of cleanliness
-      $this.find('[data-validations]')
+      $this
+        .find('[data-validations]')
         .addClass('is-filled is-dirty')
         .trigger('blur');
 
