@@ -40,6 +40,11 @@ validators.runValidator = function (element, test) {
 		return;
 	}
 
+  if (!storage[test]) {
+    console.error('Validator "%s" not found.', test);
+    return;
+  }
+
 	var result = storage[test].test.call(element, element && element.value);
 	return result ? undefined : storage[test].message;
 };
