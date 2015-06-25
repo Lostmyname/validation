@@ -29,6 +29,10 @@ validate.element = function validateElement(input, setClasses) {
     }
   }
 
+  if (!$input.hasClass('is-filled') && $input.attr('type') === 'email') {
+    return;
+  }
+
   // Cache the array of validations
   if (!$input.data('_validationArray')) {
     validations = $input.data('validations').split(' ');
