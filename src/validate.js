@@ -22,15 +22,15 @@ validate.element = function validateElement(input, setClasses) {
   var $input = $(input);
   var validations;
 
-  // Make sure there are enough characters entered
-  if (typeof $input.data('validate-at') !== 'undefined') {
-    if (!$input.hasClass('is-filled') && $input.val().length < $input.data('validate-at')) {
+  if (!$input.hasClass('is-filled')) {
+    // 0 < undefined
+    if ($input.val().length < $input.data('validate-at')) {
       return;
     }
-  }
 
-  if (!$input.hasClass('is-filled') && $input.attr('type') === 'email') {
-    return;
+    if ($input.attr('type') === 'email') {
+      return;
+    }
   }
 
   // Cache the array of validations
