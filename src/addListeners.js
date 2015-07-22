@@ -1,12 +1,12 @@
 'use strict';
 
 var $ = require('jquery');
-
+var debounce = require('lodash.debounce');
 var validate = require('./validate');
 var getErrorElement = require('./helpers/getErrorElement');
 
 // Handle elements with data-validations properties
-$(document).on('keyup click change blur', 'input, textarea', function (e) {
+$(document).on('keyup click blur', 'input, textarea', debounce(function (e) {
   var $this = $(this);
 
   // If an input has no validators, assume that it is always valid
@@ -27,11 +27,12 @@ $(document).on('keyup click change blur', 'input, textarea', function (e) {
     } else {
       $error.hide();
     }
+    $error.trigger('errorRemoved');
   }
 
   // Do not use getParentForm()
   validate.form($(e.target).parents('form').get(0));
-});
+}, 250));
 
 // I'm honestly not sure what this code does that the above doesn't
 // @todo: Figure out what this does
@@ -59,6 +60,9 @@ $(document).on('blur keyup', '[data-validations]', function (e) {
     $error.css('opacity', fail ? 1 : 0);
   } else {
     $error[fail ? 'show' : 'hide']();
+  }
+  if(fail) {
+    $error.trigger('errorShown')
   }
 });
 
