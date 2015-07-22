@@ -36,7 +36,7 @@ $(document).on('keyup click blur', 'input, textarea', debounce(function (e) {
 
 // I'm honestly not sure what this code does that the above doesn't
 // @todo: Figure out what this does
-$(document).on('blur keyup', '[data-validations]', function (e) {
+$(document).on('blur keyup', '[data-validations]', debounce(function (e) {
   var $input = $(e.target);
 
   if (e.type === 'keyup' && !$input.hasClass('is-filled')) {
@@ -64,7 +64,7 @@ $(document).on('blur keyup', '[data-validations]', function (e) {
   if(fail) {
     $error.trigger('errorShown')
   }
-});
+}, 250));
 
 // Remove required attributes, and disable submits
 $(document).ready(function () {
