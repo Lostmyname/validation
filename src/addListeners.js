@@ -32,7 +32,7 @@ $(document).on('keyup click blur', 'input, textarea', debounce(function (e) {
 
   // Do not use getParentForm()
   validate.form($(e.target).parents('form').get(0));
-}, 250));
+}, 150));
 
 // I'm honestly not sure what this code does that the above doesn't
 // @todo: Figure out what this does
@@ -54,6 +54,7 @@ $(document).on('blur keyup', '[data-validations]', debounce(function (e) {
 
   if (error) {
     $error.text(error);
+
   }
 
   if ($input.data('errorasopacity')) {
@@ -61,10 +62,10 @@ $(document).on('blur keyup', '[data-validations]', debounce(function (e) {
   } else {
     $error[fail ? 'show' : 'hide']();
   }
-  if(fail) {
-    $error.trigger('errorShown')
+  if (fail) {
+    $error.trigger('errorShown');
   }
-}, 250));
+}, 150));
 
 // Remove required attributes, and disable submits
 $(document).ready(function () {
