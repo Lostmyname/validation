@@ -1,7 +1,6 @@
 'use strict';
 
 var $ = require('jquery');
-
 var validate = require('./validate');
 var getErrorElement = require('./helpers/getErrorElement');
 
@@ -27,6 +26,7 @@ $(document).on('keyup click change blur', 'input, textarea', function (e) {
     } else {
       $error.hide();
     }
+    $error.trigger('errorRemoved');
   }
 
   // Do not use getParentForm()
@@ -53,12 +53,16 @@ $(document).on('blur keyup', '[data-validations]', function (e) {
 
   if (error) {
     $error.text(error);
+
   }
 
   if ($input.data('errorasopacity')) {
     $error.css('opacity', fail ? 1 : 0);
   } else {
     $error[fail ? 'show' : 'hide']();
+  }
+  if (fail) {
+    $error.trigger('errorShown');
   }
 });
 
