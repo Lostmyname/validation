@@ -52,9 +52,10 @@ validate.element = function validateElement(input, setClasses) {
 
   // Run the validations on the element
   var error = validators.runValidators(input, validations);
+  // console.log('validateElement', error, input);
 
   // Set classes if they should be set
-  if (setClasses !== false && $input.is(':visible')) {
+  if (setClasses !== false) {
     if ($input.val()) {
       $input.addClass('is-dirty');
     }
@@ -88,8 +89,10 @@ validate.element = function validateElement(input, setClasses) {
 validate.form = function validateForm(form) {
   var $form = $(form);
   var $notDirty;
-  var $inputs = $form.findInForm('[data-validations]:visible');
+  var $inputs = $form.findInForm('[data-validations]');
   var valid = true;
+
+  console.log('is invalid', $inputs.filter('.is-invalid'));
 
   // Validate all elements which have been modified since page load
   if ($inputs.filter('.is-invalid').length) {
@@ -117,8 +120,7 @@ validate.form = function validateForm(form) {
 
   // Disable submit buttons
   $form.find('[type="submit"]:not([data-ignore-validation="true"])')
-    .prop('disabled', $form.find('.is-filled.is-invalid:visible').length);
+    .prop('disabled', $form.find('.is-filled.is-invalid').length);
 
   return valid;
 };
-

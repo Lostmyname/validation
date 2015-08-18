@@ -7,6 +7,7 @@ var getErrorElement = require('./helpers/getErrorElement');
 // Handle elements with data-validations properties
 $(document).on('keyup click change blur', 'input, textarea', function (e) {
   var $this = $(this);
+  console.log('validating', $this);
 
   // If an input has no validators, assume that it is always valid
   if (!$this.attr('data-validations')) {
@@ -35,7 +36,7 @@ $(document).on('keyup click change blur', 'input, textarea', function (e) {
 
 // I'm honestly not sure what this code does that the above doesn't
 // @todo: Figure out what this does
-$(document).on('blur keyup', '[data-validations]', function (e) {
+$(document).on('blur keyup change', '[data-validations]', function (e) {
   var $input = $(e.target);
 
   if (e.type === 'keyup' && !$input.hasClass('is-filled')) {
