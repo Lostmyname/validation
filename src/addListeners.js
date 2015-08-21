@@ -5,7 +5,7 @@ var validate = require('./validate');
 var getErrorElement = require('./helpers/getErrorElement');
 
 // Handle elements with data-validations properties
-$(document).on('keyup click change blur', 'input, textarea', function (e) {
+$(document).on('keyup click change blur', 'input, textarea, select', function (e) {
   var $this = $(this);
 
   // If an input has no validators, assume that it is always valid

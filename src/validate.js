@@ -24,7 +24,7 @@ validate.element = function validateElement(input, setClasses) {
 
   if (!$input.hasClass('is-filled')) {
     // 0 < undefined
-    if ($input.val().length < $input.data('validate-at')) {
+    if ($input.val() && $input.val().length < $input.data('validate-at')) {
       return;
     }
 
