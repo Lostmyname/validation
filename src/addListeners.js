@@ -79,16 +79,22 @@ $(document).ready(function () {
     $this
       .prop('noValidate', true)
       .find('[data-validations]')
-      .filter('[required]').prop('required', false).end()
-      .filter('[maxlength]').each(function () {
-        var $this = $(this);
-        $this
-          .attr('data-maxlength', $this.attr('maxlength'))
-          .removeAttr('maxlength');
-      }).end()
-      .filter(':not([value=""])').each(function () {
-        validate.element(this);
-      });
+      .filter('[required]')
+        .prop('required', false)
+        .attr('aria-required', 'true')
+        .end()
+      .filter('[maxlength]')
+        .each(function () {
+          var $this = $(this);
+          $this
+            .attr('data-maxlength', $this.attr('maxlength'))
+            .removeAttr('maxlength');
+        })
+        .end()
+      .filter(':not([value=""])')
+        .each(function () {
+          validate.element(this);
+        });
 
     // This doesn't really belong in this library. It makes sure that the
     // infield stuff works. @todo: Remove this

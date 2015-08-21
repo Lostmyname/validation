@@ -23,7 +23,10 @@ function getErrorElement($input) {
   // If error input not found, create one
   var rand = 'error-' + Math.random().toString().slice(2);
   $input.data('error-target', '.' + rand);
-  return $('<span />').addClass('error ' + rand).insertAfter($input);
+  return $('<span />', {
+    'class': 'error ' + rand,
+    'aria-live': 'polite'
+  }).insertAfter($input);
 }
 
 module.exports = getErrorElement;
