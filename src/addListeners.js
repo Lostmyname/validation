@@ -22,7 +22,7 @@ $(document).on('keyup click change blur', 'input, textarea, select', function (e
     var $error = getErrorElement($this);
 
     if ($this.data('errorasopacity')) {
-      $error.css('opacity', 0);
+      $error.css('visibility', 'hidden');
     } else {
       $error.hide();
     }
@@ -53,11 +53,13 @@ $(document).on('blur keyup', '[data-validations]', function (e) {
 
   if (error) {
     $error.text(error);
-
   }
 
   if ($input.data('errorasopacity')) {
-    $error.css('opacity', fail ? 1 : 0);
+    $error.css({
+      'opacity': fail ? 1 : 0,
+      'visibility': fail ? 'visible' : 'hidden',
+    });
   } else {
     $error[fail ? 'show' : 'hide']();
   }
