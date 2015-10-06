@@ -8,10 +8,10 @@
   },
   "devDependencies": {
     "gulp": "^3.8.10",
-    "lmn-gulp-tasks": "^1.0.0"
+    "lmn-gulp-tasks": "^3.0.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp js-quality --fail"
   },
   "repository": {
     "type": "git",

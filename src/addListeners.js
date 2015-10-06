@@ -23,11 +23,10 @@ $(document).on('keyup click change blur', 'input, textarea, select', function (e
 
     if ($error.css('position') === 'relative') {
       $error.fadeOut();
-    }
-    else if ($this.data('errorasopacity')) {
+    } else if ($this.data('errorasopacity')) {
       $error.css({
-        'visibility': 'hidden',
-        'opacity': 0
+        visibility: 'hidden',
+        opacity: 0
       });
     } else {
       $error.hide();
@@ -65,8 +64,7 @@ $(document).on('blur keyup', '[data-validations]', function (e) {
     if (fail) {
       $error.fadeIn();
     }
-  }
-  else if ($input.data('errorasopacity')) {
+  } else if ($input.data('errorasopacity')) {
     $error
       .css('visibility', fail ? 'visible' : 'hidden')
       .fadeTo(fail ? 1 : 0);

@@ -23,9 +23,9 @@ validators.addValidator = function (name, validator) {
  *                             and validation objects as values.
  */
 validators.addValidators = function (validations) {
-	$.each(validations, function (name, validator) {
+  $.each(validations, function (name, validator) {
     validators.addValidator(name, validator);
-	});
+  });
 };
 
 /**
@@ -36,17 +36,17 @@ validators.addValidators = function (validations) {
  * @returns {string|undefined} Returns the error message or nothing.
  */
 validators.runValidator = function (element, test) {
-	if ($(element).is(':hidden')) {
-		return;
-	}
+  if ($(element).is(':hidden')) {
+    return;
+  }
 
   if (!storage[test]) {
     console.error('Validator "%s" not found.', test);
     return;
   }
 
-	var result = storage[test].test.call(element, element && element.value);
-	return result ? undefined : storage[test].message;
+  var result = storage[test].test.call(element, element && element.value);
+  return result ? undefined : storage[test].message;
 };
 
 /**
@@ -58,11 +58,11 @@ validators.runValidator = function (element, test) {
  *                           false if there were no errors.
  */
 validators.runValidators = function (element, tests) {
-	for (var error, i = 0; i < tests.length; i++) {
-		if ((error = validators.runValidator(element, tests[i]))) {
-			return error;
-		}
-	}
+  for (var error, i = 0; i < tests.length; i++) {
+    if ((error = validators.runValidator(element, tests[i]))) {
+      return error;
+    }
+  }
 
-	return false;
+  return false;
 };

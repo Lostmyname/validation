@@ -24,7 +24,7 @@ function getErrorElement($input) {
   var rand = 'error-' + Math.random().toString().slice(2);
   $input.data('error-target', '.' + rand);
   return $('<span />', {
-    'class': 'error ' + rand,
+    class: 'error ' + rand,
     'aria-live': 'polite'
   }).insertAfter($input);
 }

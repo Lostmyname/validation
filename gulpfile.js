@@ -8,6 +8,10 @@ gulp.task('js', getLmnTask('browserify', {
   dest: './dest/bundle.js'
 }));
 
+gulp.task('js-quality', getLmnTask('js-quality', {
+  src: './src/**/*.js'
+}));
+
 gulp.task('default', ['js'], function () {
   gulp.watch('./src/**/*.js', ['js']);
 });

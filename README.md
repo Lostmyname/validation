@@ -1,4 +1,4 @@
-# validation.js
+# validation.js [![Build Status](https://travis-ci.org/Lostmyname/validation.svg?branch=master)](https://travis-ci.org/Lostmyname/validation)
 
 validation.js is the library written for the Lost My Name website because we
 felt jquery-validation was just too big, and it didn't do some stuff we
