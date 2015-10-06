@@ -5,7 +5,11 @@ var validate = require('./validate');
 var getErrorElement = require('./helpers/getErrorElement');
 
 // Handle elements with data-validations properties
-$(document).on('keyup click change blur', 'input, textarea, select', function (e) {
+$(document).on('keyup click change blur', 'input, textarea, select', onChange);
+$(document).on('blur keyup', '[data-validations]', onChange);
+
+function onChange (e) {
+  var $input = $(e.target);
   var $this = $(this);
 
   // If an input has no validators, assume that it is always valid
@@ -16,32 +20,6 @@ $(document).on('keyup click change blur', 'input, textarea, select', function (e
 
     return;
   }
-
-  // Validate and show errors
-  if (!validate.element(this)) {
-    var $error = getErrorElement($this);
-
-    if ($error.css('position') === 'relative') {
-      $error.fadeOut();
-    } else if ($this.data('errorasopacity')) {
-      $error.css({
-        visibility: 'hidden',
-        opacity: 0
-      });
-    } else {
-      $error.hide();
-    }
-    $error.trigger('errorRemoved');
-  }
-
-  // Do not use getParentForm()
-  validate.form($(e.target).parents('form').get(0));
-});
-
-// I'm honestly not sure what this code does that the above doesn't
-// @todo: Figure out what this does
-$(document).on('blur keyup', '[data-validations]', function (e) {
-  var $input = $(e.target);
 
   if (e.type === 'keyup' && !$input.hasClass('is-filled')) {
     return;
@@ -74,7 +52,16 @@ $(document).on('blur keyup', '[data-validations]', function (e) {
   if (fail) {
     $error.trigger('errorShown');
   }
-});
+
+  // Validate and show errors
+  if (!validate.element(this)) {
+    var $error = getErrorElement($this);
+    $error.trigger('errorRemoved');
+  }
+
+  // Do not use getParentForm()
+  validate.form($(e.target).parents('form').get(0));
+}
 
 // Remove required attributes, and disable submits
 $(document).ready(function () {
