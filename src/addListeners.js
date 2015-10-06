@@ -8,7 +8,7 @@ var getErrorElement = require('./helpers/getErrorElement');
 $(document).on('keyup click change blur', 'input, textarea, select', onChange);
 $(document).on('blur keyup', '[data-validations]', onChange);
 
-function onChange (e) {
+function onChange(e) {
   var $input = $(e.target);
   var $this = $(this);
 
