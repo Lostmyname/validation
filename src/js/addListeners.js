@@ -4,8 +4,7 @@ var $ = require('jquery');
 var validate = require('./validate');
 var getErrorElement = require('./helpers/getErrorElement');
 
-$(document).on('keyup click change blur', 'input, textarea, select', onChange);
-$(document).on('blur keyup', '[data-validations]', onChange);
+$(document).on('keyup click change blur', '[data-validations]', onChange);
 
 function onChange(e) {
   var $input = $(this);
@@ -14,10 +13,6 @@ function onChange(e) {
   var invalidValue = validate.element(this);
   var errorNeeded = (invalidValue && $input.hasClass('is-dirty'));
   var inputInitiallyEmpty = !$input.hasClass('is-filled');
-
-  if (!$input.attr('data-validations')) {
-    return;
-  }
 
   // who knows what this is for
   if (!$input.attr('data-validations') && $input.val()) {
