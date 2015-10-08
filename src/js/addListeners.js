@@ -57,69 +57,69 @@ function onChange(e) {
 
 // Remove required attributes, and disable submits
 $(document).ready(function () {
-  $('form').filter(function () {
-    return $(this).find('[data-validations]').length;
-  }).each(function () {
-    var $this = $(this);
+  $('form')
+    .filter(() => $(this).find('[data-validations]').length)
+    .each(function () {
+      var $this = $(this);
 
-    validate.form(this);
+      validate.form(this);
 
-    // Disable browser validation and validate non-empty inputs on load
-    $this
-      .prop('noValidate', true)
-      .find('[data-validations]')
-      .filter('[required]')
-        .prop('required', false)
-        .attr('aria-required', 'true')
-        .end()
-      .filter('[maxlength]')
-        .each(function () {
-          var $this = $(this);
-          $this
-            .attr('data-maxlength', $this.attr('maxlength'))
-            .removeAttr('maxlength');
-        })
-        .end()
-      .filter(':not([value=""])')
-        .each(function () {
-          validate.element(this);
-        });
-
-    // This doesn't really belong in this library. It makes sure that the
-    // infield stuff works. @todo: Remove this
-    $this
-      .find('input, textarea')
-      .filter(':not([data-validations]):not([value=""])')
-      .filter('[type="text"], [type="tel"], [type="email"]')
-      .trigger('blur');
-
-    // Run validation on form submit
-    $this.on('submit', function (e) {
-      // This runs validation on every input regardless of cleanliness
+      // Disable browser validation and validate non-empty inputs on load
       $this
+        .prop('noValidate', true)
         .find('[data-validations]')
-        .addClass('is-filled is-dirty')
+        .filter('[required]')
+          .prop('required', false)
+          .attr('aria-required', 'true')
+          .end()
+        .filter('[maxlength]')
+          .each(function () {
+            var $this = $(this);
+            $this
+              .attr('data-maxlength', $this.attr('maxlength'))
+              .removeAttr('maxlength');
+          })
+          .end()
+        .filter(':not([value=""])')
+          .each(function () {
+            validate.element(this);
+          });
+
+      // This doesn't really belong in this library. It makes sure that the
+      // infield stuff works. @todo: Remove this
+      $this
+        .find('input, textarea')
+        .filter(':not([data-validations]):not([value=""])')
+        .filter('[type="text"], [type="tel"], [type="email"]')
         .trigger('blur');
 
-      if (!validate.form(this)) {
-        e.preventDefault();
-        e.stopPropagation();
+      // Run validation on form submit
+      $this.on('submit', function (e) {
+        // This runs validation on every input regardless of cleanliness
+        $this
+          .find('[data-validations]')
+          .addClass('is-filled is-dirty')
+          .trigger('blur');
 
-        // If element is out of viewport, scroll up to it
-        var $invalid = $this.find('.is-invalid');
+        if (!validate.form(this)) {
+          e.preventDefault();
+          e.stopPropagation();
 
-        if (!$invalid.length) {
-          return;
+          // If element is out of viewport, scroll up to it
+          var $invalid = $this.find('.is-invalid');
+
+          if (!$invalid.length) {
+            return;
+          }
+
+          var offset = $this.find('.is-invalid').offset().top;
+
+          if ($(window).scrollTop() > offset) {
+            $('html, body').animate({ scrollTop: offset - 10 });
+          }
         }
-
-        var offset = $this.find('.is-invalid').offset().top;
-
-        if ($(window).scrollTop() > offset) {
-          $('html, body').animate({ scrollTop: offset - 10 });
-        }
-      }
+      });
     });
-  });
 });
 
 // If you fire the `validate` event on an input, it will be validated
