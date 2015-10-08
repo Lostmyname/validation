@@ -4,20 +4,27 @@ var $ = require('jquery');
 var validate = require('./validate');
 var getErrorElement = require('./helpers/getErrorElement');
 
-// Handle elements with data-validations properties
 $(document).on('keyup click change blur', 'input, textarea, select', onChange);
 $(document).on('blur keyup', '[data-validations]', onChange);
 
 function onChange(e) {
-  var $input = $(e.target);
-  var $this = $(this);
+  var $input = $(this);
+  var $error = getErrorElement($input);
 
-  // If an input has no validators, assume that it is always valid
-  if (!$this.attr('data-validations')) {
-    if ($this.val()) {
-      $this.addClass('is-dirty is-valid');
-    }
+  var invalidValue = validate.element(this);
+  var errorNeeded = (invalidValue && $input.hasClass('is-dirty'));
+  var inputInitiallyEmpty = !$input.hasClass('is-filled');
 
+  if (!$input.attr('data-validations')) {
+    return;
+  }
+
+  // who knows what this is for
+  if (!$input.attr('data-validations') && $input.val()) {
+    $input.addClass('is-dirty is-valid');
+  }
+
+  if (inputInitiallyEmpty) {
     return;
   }
 
@@ -25,42 +32,32 @@ function onChange(e) {
     return;
   }
 
-  var error = validate.element(e.target);
-
-  if (!$input.hasClass('is-filled')) {
-    return;
-  }
-
-  var $error = getErrorElement($input);
-  var fail = (error && $input.hasClass('is-dirty'));
-
-  if (error) {
-    $error.text(error);
-  }
-
-  if ($error.css('position') === 'relative') {
-    if (fail) {
-      $error.fadeIn();
-    }
-  } else if ($input.data('errorasopacity')) {
-    $error
-      .css('visibility', fail ? 'visible' : 'hidden')
-      .fadeTo(fail ? 1 : 0);
+  if (invalidValue) {
+    $error.text(invalidValue);
   } else {
-    $error[fail ? 'show' : 'hide']();
-  }
-  if (fail) {
-    $error.trigger('errorShown');
+    $error.trigger('errorRemoved'); // this do anything?
+    showError(false);
   }
 
-  // Validate and show errors
-  if (!validate.element(this)) {
-    var $error = getErrorElement($this);
-    $error.trigger('errorRemoved');
+  if (errorNeeded) {
+    $error.trigger('errorShown');
+    showError(true);
   }
 
   // Do not use getParentForm()
-  validate.form($(e.target).parents('form').get(0));
+  validate.form($input.parents('form').get(0));
+
+  function showError(showError) {
+    if ($error.css('position') === 'relative') {
+      $error.fadeIn();
+    } else if ($input.data('errorasopacity')) {
+      $error
+        .css('visibility', showError ? 'visible' : 'hidden')
+        .fadeTo(showError ? 1 : 0);
+    } else {
+      $error[showError ? 'show' : 'hide']();
+    }
+  }
 }
 
 // Remove required attributes, and disable submits
