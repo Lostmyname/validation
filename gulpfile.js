@@ -10,6 +10,7 @@ var config = {
     dest: './demo/build'
   },
   js: {
+    watch: ['./src/js/**/*.js', './demo/js/**/*.js'],
     src: './demo/js/script.js',
     dest: './demo/build/bundle.js'
   },
@@ -32,7 +33,7 @@ gulp.task('js', ['js-quality'], getLmnTask('browserify', config.js));
 gulp.task('scss', getLmnTask('scss', config.css));
 
 gulp.task('js-watch', getLmnTask('browserify', {
-  src: config.js.src,
+  src: config.js.watch,
   dest: config.js.dest,
   watch: true
 }));
@@ -47,5 +48,4 @@ gulp.task('default', ['build'], function () {
   ], config.browser);
 
   gulp.watch('./src/scss/**/*.{sass,scss}', ['scss']);
-  gulp.watch(['./src/js/**/*.js', './demo/js/**/*.js'], ['js']);
 });
