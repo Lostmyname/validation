@@ -12,7 +12,7 @@ function onChange(e) {
 
   var invalidValue = validate.element(this);
   var errorNeeded = (invalidValue && $input.hasClass('is-dirty'));
-  var inputInitiallyEmpty = !$input.hasClass('is-filled');
+  var inputInitiallyEmpty =  !$input.hasClass('is-filled');
 
   // who knows what this is for
   if (!$input.attr('data-validations') && $input.val()) {

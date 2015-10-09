@@ -16,7 +16,7 @@
     "should": "^4.2.0"
   },
   "scripts": {
-    "test": "open 'http://localhost:3001/demo/tests.html'"
+    "test": "gulp js-quality --fail"
   },
   "repository": {
     "type": "git",

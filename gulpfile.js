@@ -11,7 +11,7 @@ var config = {
   },
   js: {
     watch: ['./src/js/**/*.js', './demo/js/**/*.js'],
-    src: './demo/js/script.js',
+    src: './index.js',
     dest: './demo/build/bundle.js'
   },
   lint: {
@@ -36,6 +36,10 @@ gulp.task('js-watch', getLmnTask('browserify', {
   src: config.js.watch,
   dest: config.js.dest,
   watch: true
+}));
+
+gulp.task('js-quality', getLmnTask('js-quality', {
+  src: './src/js/**/*.js'
 }));
 
 gulp.task('build', ['js', 'scss']);
