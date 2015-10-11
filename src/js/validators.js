@@ -39,7 +39,6 @@ validators.runValidator = function (element, test) {
   if ($(element).is(':hidden')) {
     return;
   }
-
   if (!storage[test]) {
     console.error('Validator "%s" not found.', test);
     return;
