@@ -1,4 +1,4 @@
-/* global describe, it, validation */
+/* global describe, it, $, validation */
 
 'use strict';
 

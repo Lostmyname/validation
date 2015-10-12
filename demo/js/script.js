@@ -1,4 +1,4 @@
-import validation from '../../index.js';
+/* global validation */
 
 validation.addValidator('required', {
   message: 'This field is required!',
