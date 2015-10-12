@@ -22,6 +22,10 @@ validate.element = function validateElement(input, setClasses) {
   var $input = $(input);
   var validations;
 
+  if (!$input.data('validations')) {
+    return;
+  }
+
   if (!$input.hasClass('is-filled')) {
     // 0 < undefined
     if ($input.val() && $input.val().length < $input.data('validate-at')) {
@@ -121,4 +125,3 @@ validate.form = function validateForm(form) {
 
   return valid;
 };
-
