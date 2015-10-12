@@ -43,9 +43,10 @@ function onChange(e) {
   validate.form($input.parents('form').get(0));
 
   function showError(showError) {
-    if ($error.css('position') === 'relative') {
-      $error.fadeIn();
-    } else if ($input.data('errorasopacity')) {
+    if (
+      $input.data('errorasopacity')
+      && !$error.css('position') === 'relative'
+    ) {
       $error
         .css('visibility', showError ? 'visible' : 'hidden')
         .fadeTo(showError ? 1 : 0);
