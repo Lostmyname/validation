@@ -9,6 +9,7 @@
     "lmn.tarantula": "0.5.x"
   },
   "devDependencies": {
+    "babelify": "^6.3.0",
     "browser-sync": "^2.9.10",
     "gulp": "^3.8.10",
     "lmn-gulp-tasks": "^3.0.1",
