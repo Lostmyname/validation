@@ -11,7 +11,7 @@ function onChange(e) {
   var $error = getErrorElement($input);
 
   var invalidValue = validate.element(this);
-  var errorNeeded = (invalidValue && $input.hasClass('is-dirty'));
+  var errorNeeded = invalidValue && $input.hasClass('is-dirty');
   var inputInitiallyEmpty =  !$input.hasClass('is-filled');
 
   // who knows what this is for
@@ -30,12 +30,11 @@ function onChange(e) {
   if (invalidValue) {
     $error.text(invalidValue);
   } else {
-    $error.trigger('errorRemoved'); // this do anything?
+    $error.text('');
     showError(false);
   }
 
   if (errorNeeded) {
-    $error.trigger('errorShown');
     showError(true);
   }
 
@@ -51,7 +50,8 @@ function onChange(e) {
         .css('visibility', showError ? 'visible' : 'hidden')
         .fadeTo(showError ? 1 : 0);
     } else {
-      $error[showError ? 'show' : 'hide']();
+      $error[showError ? 'show' : 'hide']()
+        .css('visibility', showError ? 'visible' : 'hidden');
     }
   }
 }
