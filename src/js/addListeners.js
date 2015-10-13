@@ -14,11 +14,6 @@ function onChange(e) {
   var errorNeeded = invalidValue && $input.hasClass('is-dirty');
   var inputInitiallyEmpty =  !$input.hasClass('is-filled');
 
-  // who knows what this is for
-  if (!$input.attr('data-validations') && $input.val()) {
-    $input.addClass('is-dirty is-valid');
-  }
-
   if (inputInitiallyEmpty) {
     return;
   }
@@ -42,17 +37,9 @@ function onChange(e) {
   validate.form($input.parents('form').get(0));
 
   function showError(showError) {
-    if (
-      $input.data('errorasopacity')
-      && !$error.css('position') === 'relative'
-    ) {
-      $error
-        .css('visibility', showError ? 'visible' : 'hidden')
-        .fadeTo(showError ? 1 : 0);
-    } else {
-      $error[showError ? 'show' : 'hide']()
-        .css('visibility', showError ? 'visible' : 'hidden');
-    }
+    $error
+      .css('visibility', showError ? 'visible' : 'hidden')
+      .toggle(showError);
   }
 }
 
