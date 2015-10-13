@@ -100,7 +100,7 @@ $(document).ready(function () {
             return;
           }
 
-          var offset = $this.find('.is-invalid').offset().top;
+          var offset = $invalid.offset().top;
 
           if ($(window).scrollTop() > offset) {
             $('html, body').animate({ scrollTop: offset - 10 });
