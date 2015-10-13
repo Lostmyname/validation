@@ -1,3 +1,5 @@
-dest
 node_modules
+demo/build
 *.log
+.sass-cache
+rev-manifest.json
