@@ -21,6 +21,10 @@ var validate = module.exports = validators.validate = {};
 validate.element = function validateElement(input, setClasses) {
   var $input = $(input);
   var validations;
+  var inputTag = $input.prop('tagName').toLowerCase();
+  if (inputTag === 'option') {
+    $input = $input.parent();
+  }
 
   if (!$input.hasClass('is-filled')) {
     // 0 < undefined
@@ -35,8 +39,10 @@ validate.element = function validateElement(input, setClasses) {
 
   // Cache the array of validations
   if (!$input.data('_validationArray')) {
-    validations = $input.data('validations').split(' ');
-    $input.data('_validationArray', validations);
+    if ($input.data('validations')) {
+      validations = $input.data('validations').split(' ');
+      $input.data('_validationArray', validations);
+    }
   } else {
     validations = $input.data('_validationArray');
   }
