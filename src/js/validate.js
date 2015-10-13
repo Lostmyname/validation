@@ -21,8 +21,8 @@ var validate = module.exports = validators.validate = {};
 validate.element = function validateElement(input, setClasses) {
   var $input = $(input);
   var validations;
-  var inputTag = $input.prop('tagName').toLowerCase();
-  if (inputTag === 'option') {
+  var inputTag = $input.prop('tagName');
+  if (inputTag === 'OPTION') {
     $input = $input.parent();
   }
 
