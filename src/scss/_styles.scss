@@ -1,0 +1,76 @@
+.label--bubble {
+  position: absolute;
+  background: map-get($palette, 'sunglow');
+  max-width: 100%;
+  max-width: calc(100% - 1.25rem);
+  padding: rem(12) rem(16);
+  bottom: 100%;
+  box-shadow: rgba(0,0,0,0.3) 0px 1px 5px;
+  right: 0;
+  border-radius: rem(5);
+  font-style: italic;
+  -webkit-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+  z-index: 10;
+}
+
+.label--bubble:before {
+  content: '';
+  position: absolute;
+  bottom: rem(-30px);
+  left: 50%;
+  width: rem(20px);
+  height: rem(20px);
+  border: rem(20px) solid transparent;
+  border-top-color: map-get($palette, 'sunglow');
+  margin-left: rem(-20px);
+}
+
+/*
+ * Error variant
+ */
+
+.label--bubble.label--error {
+  background: map-get($palette, 'alert');
+  font-style: normal;
+  color: white;
+}
+
+.label--bubble.label--error:before {
+  border-top-color: map-get($palette, 'alert');
+}
+
+.label--bubble.label--error {
+  visibility: hidden;
+}
+
+.label--bubble.label--bubble--block {
+  position: relative;
+  bottom: auto;
+  width: 100%;
+  max-width: none;
+  margin-bottom: 20px;
+  visibility: visible;
+  display: none;
+}
+
+.label--bubble.label--underneath {
+  border-radius: rem(2);
+  box-shadow: none;
+  display: none;
+  max-width: none;
+  opacity: 1;
+  padding: rem(6) rem(12);
+  position: relative;
+  visibility: visible;
+  width: 100%;
+
+  &:before {
+    bottom: 100%;
+    width: rem(10);
+    height: rem(10);
+    border: rem(10) solid transparent;
+    border-bottom-color: map-get($palette, 'alert');
+    margin-left: -10px;
+  }
+}

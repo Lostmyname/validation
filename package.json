@@ -1,14 +1,19 @@
 {
   "name": "lmn-validation",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "The validation library used by Lost My Name",
   "main": "index.js",
   "dependencies": {
-    "jquery": "^1.11.2"
+    "jquery": "^1.11.2",
+    "lmn.jester.theme.default": "0.12.x",
+    "lmn.tarantula": "0.5.x"
   },
   "devDependencies": {
+    "browser-sync": "^2.9.10",
     "gulp": "^3.8.10",
-    "lmn-gulp-tasks": "^3.0.1"
+    "lmn-gulp-tasks": "^3.0.1",
+    "mocha": "^2.0.1",
+    "should": "^4.2.0"
   },
   "scripts": {
     "test": "gulp js-quality --fail"
@@ -22,5 +27,10 @@
   "bugs": {
     "url": "https://github.com/Lostmyname/validation/issues"
   },
-  "homepage": "https://github.com/Lostmyname/validation"
+  "homepage": "https://github.com/Lostmyname/validation",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
 }
