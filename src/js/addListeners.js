@@ -39,7 +39,8 @@ function onChange(e) {
 
   function showError(showError) {
     $error
-      .css('display', showError ? 'block' : 'none');
+      .css('visibility', showError ? 'visible' : 'hidden')
+      .toggle(showError);
   }
 }
 
