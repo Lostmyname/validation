@@ -15,6 +15,7 @@ function onChange(e) {
   var inputInitiallyEmpty =  !$input.hasClass('is-filled');
 
   if (inputInitiallyEmpty) {
+    showError(false);
     return;
   }
 
@@ -38,8 +39,7 @@ function onChange(e) {
 
   function showError(showError) {
     $error
-      .css('visibility', showError ? 'visible' : 'hidden')
-      .toggle(showError);
+      .css('display', showError ? 'block' : 'none');
   }
 }
 
