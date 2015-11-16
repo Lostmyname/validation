@@ -103,6 +103,8 @@ You can disable this behaviour—useful for if you want a submit button to force
 submit even with invalid data. Just add a `data-ignore-validation="true"`
 attribute.
 
+If you would like to disable any other buttons you can add `[data-disable-on-error]` to them and they'll get disabled too.
+
 
 ### HTML5 form validation will be disabled
 
