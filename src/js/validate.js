@@ -116,7 +116,7 @@ validate.form = function validateForm(form) {
   }
 
   // Disable submit buttons
-  $form.find('[type="submit"]:not([data-ignore-validation="true"])')
+  $form.find('[type="submit"]:not([data-ignore-validation="true"]), [data-disable-on-error]')
     .prop('disabled', $form.find('.is-filled.is-invalid:visible').length);
 
   return valid;
