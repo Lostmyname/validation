@@ -25,8 +25,6 @@ var config = {
   }
 };
 
-gulp.task('auto-reload', getLmnTask('auto-reload'));
-
 gulp.task('js-quality', getLmnTask('js-quality', config.lint));
 
 gulp.task('js', ['js-quality'], getLmnTask('browserify', config.js));
