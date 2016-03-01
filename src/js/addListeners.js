@@ -47,7 +47,7 @@ function onChange(e) {
 // Remove required attributes, and disable submits
 $(document).ready(function () {
   $('form')
-    .filter(() => $(this).find('[data-validations]').length)
+    .filter((_, el) => $(el).find('[data-validations]').length)
     .each(function () {
       var $this = $(this);
 
